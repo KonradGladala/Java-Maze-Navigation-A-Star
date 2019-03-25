@@ -83,31 +83,31 @@ public class Main {
 			
 			if(maze.getMaze2D()[currentPoint.row][currentPoint.col] != VISITED_CELL) //If the current Node was not visited check its neighbours. 
 			{
-			tryMove(maze, currentPoint, maze.getEnd(), queue, -1, 0); // South
-			tryMove(maze, currentPoint, maze.getEnd(), queue, +1, 0); // North
-			tryMove(maze, currentPoint, maze.getEnd(), queue, 0, -1); // West
-			tryMove(maze, currentPoint, maze.getEnd(), queue, 0, +1); // East
+			tryMove(maze, currentPoint, queue, -1, 0); // South
+			tryMove(maze, currentPoint, queue, +1, 0); // North
+			tryMove(maze, currentPoint, queue, 0, -1); // West
+			tryMove(maze, currentPoint, queue, 0, +1); // East
 			}
 		}
 		return null; // If maze cannot be solved value null is returned;
 	}
 		
-	static void tryMove(Maze maze, Node point, Node end, Queue<Node> q, int dx, int dy) {
+	static void tryMove(Maze maze, Node point, Queue<Node> q, int dx, int dy) {
 	    int x = point.row + dx; //offset of row.    
 	    int y = point.col + dy; //offset of column.   
 	   
 	    //Confirm if the current Node is a valid wrap candidate and that the previous Node has not been wrapped (to avoid loops going back and fourth).
-	    if (isWrappable(maze, point.row, point.col, point, end).size() != 0 && isWrappable(maze, point.parent.row, point.parent.col, point.parent, end).size() == 0) 
-			if(isWrappable(maze, point.row, point.col, point , end).size() > 1) { //If you are at one of the 4 corners of the maze add both Vertical and Horizontal wrap (if both are valid) - Very rare case but must be checked. 
-	    	q.add(isWrappable(maze, point.row, point.col, point , end).get(0));
-	        q.add(isWrappable(maze, point.row, point.col, point , end).get(1)); 
+	    if (isWrappable(maze, point.row, point.col, point).size() != 0 && isWrappable(maze, point.parent.row, point.parent.col, point.parent).size() == 0) 
+			if(isWrappable(maze, point.row, point.col, point).size() > 1) { //If you are at one of the 4 corners of the maze add both Vertical and Horizontal wrap (if both are valid) - Very rare case but must be checked. 
+	    	q.add(isWrappable(maze, point.row, point.col, point).get(0));
+	        q.add(isWrappable(maze, point.row, point.col, point).get(1)); 
 	        }
-	        else q.add(isWrappable(maze, point.row, point.col, point , end).get(0)); //Add the exit Node given by the isWrappable function to the Queue. 
+	        else q.add(isWrappable(maze, point.row, point.col, point).get(0)); //Add the exit Node given by the isWrappable function to the Queue. 
 	   
 	    //Attempt to move in a offset direction if a validity check performed by isFree is true.
 	    if (isFree(maze, x, y)) {
 	        maze.getMaze2D()[point.row][point.col] = VISITED_CELL; //Set the current node to visited.
-	        q.add(new Node(x, y, point, end)); //Add the offset Node to the Queue.
+	        q.add(new Node(x, y, point)); //Add the offset Node to the Queue.
 	    }
 	}
 
@@ -119,12 +119,12 @@ public class Main {
 	}
 			
 	//Checks if a coordinate can be wrapped or not.
-	public static ArrayList<Node> isWrappable(Maze maze, int row, int col, Node parent, Node end) {
+	public static ArrayList<Node> isWrappable(Maze maze, int row, int col, Node parent) {
 		    ArrayList<Node> result = new ArrayList<Node>();
-		    if(row == 0 && maze.getMaze2D()[maze.getRow()][col] != WALL_CELL) result.add(new Node(maze.getRow(), col, parent, end)); // Vertical - Check if the Node on the other side is not a wall then - Come out on the Bottom. 
-		    if(row == maze.getRow() && maze.getMaze2D()[0][col] != WALL_CELL) result.add(new Node(0, col, parent, end)); // Vertical - Check if the Node on the other side is not a wall then - Come out on the Top.
-		    if(col == 0 && maze.getMaze2D()[row][maze.getColumn()] != WALL_CELL) result.add(new Node(row, maze.getColumn(), parent, end)); // Horizontal - Check if the Node on the other side is not a wall then - Come out on Right.
-		    if(col == maze.getColumn() && maze.getMaze2D()[row][0] != WALL_CELL) result.add(new Node(row, 0, parent, end)); // Horizontal - Check if the Node on the other side is not a wall then - Come out on Left.
+		    if(row == 0 && maze.getMaze2D()[maze.getRow()][col] != WALL_CELL) result.add(new Node(maze.getRow(), col, parent)); // Vertical - Check if the Node on the other side is not a wall then - Come out on the Bottom. 
+		    if(row == maze.getRow() && maze.getMaze2D()[0][col] != WALL_CELL) result.add(new Node(0, col, parent)); // Vertical - Check if the Node on the other side is not a wall then - Come out on the Top.
+		    if(col == 0 && maze.getMaze2D()[row][maze.getColumn()] != WALL_CELL) result.add(new Node(row, maze.getColumn(), parent)); // Horizontal - Check if the Node on the other side is not a wall then - Come out on Right.
+		    if(col == maze.getColumn() && maze.getMaze2D()[row][0] != WALL_CELL) result.add(new Node(row, 0, parent)); // Horizontal - Check if the Node on the other side is not a wall then - Come out on Left.
 		    return result; // Return result, if result size is 0 then the coordinate cannot be wrapped.
 	}
 }

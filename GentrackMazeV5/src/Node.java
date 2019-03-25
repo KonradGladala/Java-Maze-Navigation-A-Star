@@ -6,7 +6,7 @@ public class Node {
 	//private int totalCostPerMove;
 	Node parent;
 
-	public Node(int x, int y, Node parent, Node end) {
+	public Node(int x, int y, Node parent) {
 		this.row = x;
 		this.col = y;
 		//this.moveCost = 0;
