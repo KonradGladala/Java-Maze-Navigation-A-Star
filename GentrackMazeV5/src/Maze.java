@@ -28,10 +28,7 @@ public class Maze {
 																							// either 1 or 0 height of maze read from file.
 			}
 		}
-		this.maze2D[end.row][end.col] = 9; // Set the end coordinates in maze, if not allowed to modify maze file this
-											// can be removed and Main Class changed to use maze.getEnd() instead. Also
-											// for solving the maze, clone the object before modifing it if not allowed
-											// to.
+		this.maze2D[end.row][end.col] = 9; // Set the end coordinates in maze. Possible to use getEnd method instead for maze state validation.
 	}
 	
 	// Print result using a 2D String Array of the same size as the Maze.
