@@ -66,7 +66,7 @@ public class Main {
 	/** This method solves the maze by utilising a Queue holding all the Nodes to be explored. 
 	 * Starting location is fed to the queue then a while loop starts and extracts each Node element of the queue one by one putting it through all the checks to generate new Nodes to check. 
 	 * @param Maze - This parameter is a Maze object which contains a 2Dint array 
-	 * @return Node -  returns a Node which holds the previous Node, so on, so fourth. Path can be reconstructed from this Node by extracting its parents.
+	 * @return Node -  returns a Node which holds the previous Nodes. Path can be reconstructed from this Node by extracting its parents.
 	 * */
 	public static Node solveMaze(Maze maze) { 
 	    Queue<Node> queue = new LinkedList<Node>();   
