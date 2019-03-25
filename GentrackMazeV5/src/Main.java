@@ -3,12 +3,14 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.PriorityQueue;  
+import java.util.LinkedList;
+import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.Scanner;
 
 /** 
- * A* Search Algorithm implementation in Java.
- * This program implements A* algorithm on a 2D int array abstracted to a Maze. 
+ * Breadth First Search Algorithm implementation in Java.
+ * This program implements BFS algorithm on a 2D int array abstracted to a Maze. 
  * Maze data is stored in a text.file in the following format:
  * ----------------
  * 6 5 - Maze dimensions (width and height).
@@ -21,8 +23,8 @@ import java.util.Scanner;
  * 1 1 1 1 1 1
  * 1s are considered walls and 0s are open areas. Additionally, maze can wrap around itself if the edges on both sides are 0s. 
  * ----------------
- * This program utilises A* algorithm to build the optimal path through the maze quickly by intelligently choosing the Nodes to explore by combining estimated move cost with a heuristic calculation.
- * It is mathematically guaranteed that this program will return the shortest path through the maze, at least in theory. 
+ * This program utilises BFS algorithm to build the optimal path through the maze, exploring every possibility.
+ * The shortest path through the maze should always be returned. 
  * 
  * Upon running, file location will be requested this should be a direct file path such as: C:\Users\User\Desktop\Folder\Folder\file.txt  
  * @Author Konrad Gladala
@@ -61,14 +63,13 @@ public class Main {
 		}
 	}
 
-	/** This method solves the maze by utilising a ProrityQueue fed with a custom
-	 * Comparator which sorts the Nodes that are to be checked based on their proximity to the exit
+	/** This method solves the maze by utilising a Queue holding all the Nodes to be explored. 
 	 * Starting location is fed to the queue then a while loop starts and extracts each Node element of the queue one by one putting it through all the checks to generate new Nodes to check. 
 	 * @param Maze - This parameter is a Maze object which contains a 2Dint array 
 	 * @return Node -  returns a Node which holds the previous Node, so on, so fourth. Path can be reconstructed from this Node by extracting its parents.
 	 * */
 	public static Node solveMaze(Maze maze) { 
-	    PriorityQueue<Node> queue = new PriorityQueue<Node>();  // Implements comparable in Node Class to compare Nodes priority value.
+	    Queue<Node> queue = new LinkedList<Node>();   
 		queue.add(maze.getStart()); // Adds the starting coordinates to the queue.
 		while (!queue.isEmpty()) // Continue the while loop until exit found or maze is returned as null which means unsolvable.
 		{
@@ -91,7 +92,7 @@ public class Main {
 		return null; // If maze cannot be solved value null is returned;
 	}
 		
-	static void tryMove(Maze maze, Node point, Node end, PriorityQueue<Node> q, int dx, int dy) {
+	static void tryMove(Maze maze, Node point, Node end, Queue<Node> q, int dx, int dy) {
 	    int x = point.row + dx; //offset of row.    
 	    int y = point.col + dy; //offset of column.   
 	   
