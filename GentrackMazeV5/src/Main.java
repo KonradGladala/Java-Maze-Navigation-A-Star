@@ -11,7 +11,7 @@ import java.util.Scanner;
  * This program implements A* algorithm on a 2D int array abstracted to a Maze. 
  * Maze data is stored in a text.file in the following format:
  * ----------------
- * 6 5 - Maze dimensions (width and height) //.
+ * 6 5 - Maze dimensions (width and height).
  * 1 3 - Start location (width and height).
  * 3 3 - End location (width and height)
  * 1 1 1 1 1 1
@@ -22,7 +22,7 @@ import java.util.Scanner;
  * 1s are considered walls and 0s are open areas. Additionally, maze can wrap around itself if the edges on both sides are 0s. 
  * ----------------
  * This program utilises A* algorithm to build the optimal path through the maze quickly by intelligently choosing the Nodes to explore by combining estimated move cost with a heuristic calculation.
- * It is mathematically guaranteed that this program will return the shortest path through maze, at least in theory. 
+ * It is mathematically guaranteed that this program will return the shortest path through the maze, at least in theory. 
  * 
  * Upon running, file location will be requested this should be a direct file path such as: C:\Users\User\Desktop\Folder\Folder\file.txt  
  * @Author Konrad Gladala
@@ -63,7 +63,7 @@ public class Main {
 
 	/** This method solves the maze by utilising a ProrityQueue fed with a custom
 	 * Comparator which sorts the Nodes that are to be checked based on their proximity to the exit
-	 * Starting location is fed to the queue then a while loop starts and extracts each Node element of priority queue one by one putting it through all the checks to generate new Nodes to check. 
+	 * Starting location is fed to the queue then a while loop starts and extracts each Node element of the queue one by one putting it through all the checks to generate new Nodes to check. 
 	 * @param Maze - This parameter is a Maze object which contains a 2Dint array 
 	 * @return Node -  returns a Node which holds the previous Node, so on, so fourth. Path can be reconstructed from this Node by extracting its parents.
 	 * */
@@ -124,6 +124,6 @@ public class Main {
 		    if(row == maze.getRow() && maze.getMaze2D()[0][col] != WALL_CELL) result.add(new Node(0, col, parent, end)); // Vertical - Check if the Node on the other side is not a wall then - Come out on the Top.
 		    if(col == 0 && maze.getMaze2D()[row][maze.getColumn()] != WALL_CELL) result.add(new Node(row, maze.getColumn(), parent, end)); // Horizontal - Check if the Node on the other side is not a wall then - Come out on Right.
 		    if(col == maze.getColumn() && maze.getMaze2D()[row][0] != WALL_CELL) result.add(new Node(row, 0, parent, end)); // Horizontal - Check if the Node on the other side is not a wall then - Come out on Left.
-		    return result; // Cannot wrap, either location is not at the border or the other side is blocked - return Null. 		
+		    return result; // Return result, if result size is 0 then the coordinate cannot be wrapped.
 	}
 }
