@@ -102,16 +102,16 @@ public class Main {
 	    	q.add(isWrappable(maze, point.row, point.col, point , end).get(0));
 	        q.add(isWrappable(maze, point.row, point.col, point , end).get(1)); 
 	        }
-	        else q.add(isWrappable(maze, point.row, point.col, point , end).get(0)); //Add the exit Node given by the isWrappable function to the PriorityQueue. 
+	        else q.add(isWrappable(maze, point.row, point.col, point , end).get(0)); //Add the exit Node given by the isWrappable function to the Queue. 
 	   
 	    //Attempt to move in a offset direction if a validity check performed by isFree is true.
 	    if (isFree(maze, x, y)) {
 	        maze.getMaze2D()[point.row][point.col] = VISITED_CELL; //Set the current node to visited.
-	        q.add(new Node(x, y, point, end)); //Add the offset Node to the PriorityQueue.
+	        q.add(new Node(x, y, point, end)); //Add the offset Node to the Queue.
 	    }
 	}
 
-	//isFree performs all the validity checks before a node can be added to a queue. 
+	//isFree performs all the validity checks before a node can be added to a Queue. 
 	public static boolean isFree(Maze maze, int x, int y) {
 		if ((x >= 0 && x <= maze.getRow()) && (y >= 0 && y <= maze.getColumn()) && (maze.getMaze2D()[x][y] == EMPTY_CELl || maze.getMaze2D()[x][y] == END_CELL)) //Has to be a valid index and either an empty cell or end cell.
 			return true; //If checks passed return true.
