@@ -1,2 +1,2 @@
-# Java-Maze-Navigation-A-Star
-Navigating a wrappable 2D Maze with A-Star-Search Algorithm.
+# Java-Maze-Navigation-BFS
+Navigating a wrappable 2D Maze with BFS Algorithm.
